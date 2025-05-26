@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:todo_task_flutter_app/task_lists.dart';
 import 'package:todo_task_flutter_app/add_task.dart';
+import 'package:todo_task_flutter_app/model/task.dart';
 
-class TaskScreen extends StatelessWidget {
+class TaskScreen extends StatefulWidget {
   const TaskScreen({super.key});
+
+  @override
+  State<TaskScreen> createState() => _TaskScreenState();
+}
+
+class _TaskScreenState extends State<TaskScreen> {
+  List<Task> tasks = [
+    Task(name: "Buy milk"),
+    Task(name: "Buy eggs"),
+    Task(name: "Buy eggs"),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +27,13 @@ class TaskScreen extends StatelessWidget {
         onPressed: () {
           showModalBottomSheet(
             context: context,
-            builder: (context) => AddTask(),
+            builder:
+                (context) => AddTask((newTaskTitle) {
+                  setState(() {
+                    tasks.add(Task(name: newTaskTitle));
+                  });
+                  Navigator.pop(context);
+                }),
           );
         },
       ),
@@ -51,7 +69,7 @@ class TaskScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "12 Tasks",
+                  "${tasks.length} Tasks",
                   style: TextStyle(color: Colors.white, fontSize: 22),
                 ),
               ],
@@ -67,7 +85,7 @@ class TaskScreen extends StatelessWidget {
                   topRight: Radius.circular(20),
                 ),
               ),
-              child: TaskList(),
+              child: TaskList(tasks),
             ),
           ),
         ],

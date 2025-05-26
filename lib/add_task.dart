@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
 class AddTask extends StatelessWidget {
-  const AddTask({super.key});
+  const AddTask(this.newTaskTitleCallBack, {super.key});
+
+  final void Function(String) newTaskTitleCallBack;
 
   @override
   Widget build(BuildContext context) {
+    String newTaskTitle = "";
+
     return Container(
       color: const Color.fromARGB(0, 146, 120, 120),
       child: Container(
@@ -24,10 +28,11 @@ class AddTask extends StatelessWidget {
               style: TextStyle(backgroundColor: Colors.lightBlueAccent),
               autofocus: true,
               textAlign: TextAlign.center,
+              onChanged: (textValue) => {newTaskTitle = textValue},
             ),
             SizedBox(height: 15),
             ElevatedButton(
-              onPressed: () => {},
+              onPressed: () => {newTaskTitleCallBack(newTaskTitle)},
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                 foregroundColor: Colors.white,
