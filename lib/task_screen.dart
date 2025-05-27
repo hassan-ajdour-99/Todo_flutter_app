@@ -9,6 +9,8 @@ class TaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final taskData = Provider.of<TaskData>(context);
+
     return Scaffold(
       backgroundColor: Colors.lightBlueAccent,
       floatingActionButton: FloatingActionButton(
@@ -53,7 +55,7 @@ class TaskScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "${Provider.of<TaskData>(context).taskCount} Tasks",
+                  "${taskData.taskCount} Tasks",
                   style: TextStyle(color: Colors.white, fontSize: 22),
                 ),
               ],
