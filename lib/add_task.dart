@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:todo_task_flutter_app/model/task_data.dart';
+import "package:provider/provider.dart";
 
 class AddTask extends StatelessWidget {
-  const AddTask(this.newTaskTitleCallBack, {super.key});
-
-  final void Function(String) newTaskTitleCallBack;
+  const AddTask({super.key});
 
   @override
   Widget build(BuildContext context) {
     String newTaskTitle = "";
+
+    // Use listen: as false here
+    final taskData = Provider.of<TaskData>(context, listen: false);
 
     return Container(
       color: const Color.fromARGB(0, 146, 120, 120),
@@ -32,7 +35,11 @@ class AddTask extends StatelessWidget {
             ),
             SizedBox(height: 15),
             ElevatedButton(
-              onPressed: () => {newTaskTitleCallBack(newTaskTitle)},
+              onPressed:
+                  () => {
+                    taskData.addNewTask(newTaskTitle),
+                    Navigator.pop(context),
+                  },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                 foregroundColor: Colors.white,
